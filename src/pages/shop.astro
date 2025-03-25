@@ -64,8 +64,6 @@ const minPrice = Math.min(...prices);
 const maxPrice = Math.max(...prices);
 ---
 
-
-
 <Layout title="Productos - Confort Art">
   <main class="shop-page py-8 bg-gray-100">
     <div class="container mx-auto px-4 md:px-8 max-w-screen-xl">
@@ -180,19 +178,20 @@ const maxPrice = Math.max(...prices);
                     />
                   </div>
                   <div class="product-info p-4">
-  <h3 class="text-lg font-semibold mb-1">{product.name}</h3>
-  <p class="text-sm text-gray-600 mb-2">{product.category}</p>
-  <p class="text-xl font-bold text-gray-800 mb-4">
-    ${product.price.toFixed(2)}
-  </p>
-  <button class="add-to-cart-btn w-full p-3 bg-[#6d633a] text-white rounded-md flex items-center justify-center gap-2 transition-all duration-300 hover:bg-black"
-          data-name="{product.name}" 
-          data-image="{product.image_url}" 
-          data-price="${product.price.toFixed(2)}">
-    <i class="fab fa-whatsapp"></i>
-    Cotizar
-  </button>
-</div>
+                    <h3 class="text-lg font-semibold mb-1">{product.name}</h3>
+                    <p class="text-sm text-gray-600 mb-2">{product.category}</p>
+                    <p class="text-xl font-bold text-gray-800 mb-4">
+                      ${product.price.toFixed(2)}
+                    </p>
+                    <button
+                      class="add-to-cart-btn w-full p-3 bg-[#6d633a] text-white rounded-md flex items-center justify-center gap-2 transition-all duration-300 hover:bg-black"
+                      data-name={product.name}
+                      data-price={product.price}
+                    >
+                      <i class="fab fa-whatsapp" />
+                      Cotizar Producto
+                    </button>
+                  </div>
                 </div>
               ))
             }
@@ -203,9 +202,7 @@ const maxPrice = Math.max(...prices);
   </main>
 </Layout>
 
-
-
- <script>
+<script>
   document.addEventListener("DOMContentLoaded", () => {
     // Obtener elementos del DOM
     const sortSelect = document.getElementById(
@@ -400,25 +397,26 @@ const maxPrice = Math.max(...prices);
     }
   });
 </script>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".add-to-cart-btn");
-
-    buttons.forEach((button) => {
+    document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
       button.addEventListener("click", () => {
-        const name = button.getAttribute("data-name");
-        const image = button.getAttribute("data-image"); // Asegúrate de que la URL sea accesible públicamente
-        const price = button.getAttribute("data-price");
+        const name = button.dataset.name;
+        const price = button.dataset.price;
+        const phoneNumber = "593991530112";
 
-        const message = `Hola, me gustaría tener más información sobre este producto:\n\n🛋 *${name}*\n💰 Precio: $${price}\n📸 Imagen: ${window.location.origin}${image}`;
-        const whatsappURL = `https://wa.me/593991530112?text=${encodeURIComponent(message)}`;
+        const message =
+          `Hola! 👋\n\nEstoy interesado/a en este producto:\n\n*${name}* 🛒\n\n` +
+          `Precio: *$${parseFloat(price).toFixed(2)}* 💵\n\n` +
+          `¿Me puedes dar más información? 🤔`;
 
-        window.open(whatsappURL, "_blank");
+        const urlApiWhats = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+        window.open(urlApiWhats, "_blank");
       });
     });
   });
-</script> 
-
+</script>
 
 <link
   rel="stylesheet"
