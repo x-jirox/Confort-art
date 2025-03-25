@@ -1,0 +1,200 @@
+---
+const navLinks = [
+  //// Definición de los enlaces de navegación
+// Esta constante contiene los objetos que representan los enlaces de navegación del sitio.
+  { href: "/", text: "Inicio" },
+  { href: "/shop", text: "Productos" },
+  { href: "/contact", text: "Contáctanos" }
+];
+---
+
+
+<header class="w-full bg-white shadow-lg relative">
+  <!-- Sección de Banner superior -->
+  <div class="relative h-[300px] md:h-[400px] overflow-hidden">
+    <img
+      src="/img/banner.jpg" 
+      alt="Banner Principal"
+      class="w-full h-full object-cover blur-[2px]"
+    />
+    <!-- Fondo en degradado oscuro para el banner -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
+    <!-- Título y subtítulo centrados en el banner -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center space-y-4">
+        <h1 class="text-4xl md:text-6xl font-bold text-white tracking-wider drop-shadow-lg">
+          Confort Art <!-- Título del sitio -->
+        </h1>
+        <p class="text-lg md:text-xl text-white/90 font-light tracking-wide">
+          Diseño y elegancia para tu hogar <!-- Subtítulo -->
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Navegación -->
+  <div class="absolute top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-24">
+        <!-- Logo -->
+        <div class="flex-shrink-0 w-32 md:w-40">
+          <a href="/" class="block">
+            <img 
+              src="/img/logo.webp" 
+              alt="Confort Art Logo" 
+              class="h-16 w-auto transition duration-300 hover:opacity-90 drop-shadow-md"
+            />
+          </a>
+        </div>
+
+        <!-- Navegación en desktop -->
+        <nav class="hidden md:flex items-center space-x-10">
+          {navLinks.map(link => (
+            <a
+              href={link.href} 
+              class="text-white hover:text-primary-200 font-medium text-lg relative group transition duration-300"
+            >
+              {link.text}  <!-- Texto del enlace -->
+              <!-- Línea de animación en hover -->
+              <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary-200 group-hover:w-full transition-all duration-300 ease-out"></span>
+            </a>
+          ))}
+        </nav>
+
+        <!-- Botón de menú móvil -->
+        <button
+          id="menuButton"
+          class="md:hidden flex flex-col justify-between w-8 h-6 transition-all duration-300 z-50"
+          aria-label="Toggle Menu" 
+        >
+          <span class="w-full h-0.5 bg-white rounded-full transition-transform duration-300 shadow-lg"></span>
+          <span class="w-full h-0.5 bg-white rounded-full transition-opacity duration-300 shadow-lg"></span>
+          <span class="w-full h-0.5 bg-white rounded-full transition-transform duration-300 shadow-lg"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menú móvil -->
+  <div id="mobileMenu" class="fixed inset-0 bg-white z-40 hidden md:hidden">
+    <nav class="min-h-screen flex flex-col items-center justify-center px-4">
+      <ul class="space-y-8 text-center">
+        {navLinks.map(link => (
+          <li class="transform transition duration-300 hover:scale-110">
+            <a
+              href={link.href}  
+              class="text-3xl font-light text-primary-900 hover:text-primary-700 px-6 py-3 rounded-lg transition duration-300 block hover:bg-gray-100"
+            >
+              {link.text} <!-- Texto del enlace -->
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-item-animation {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+</style>
+
+
+<script>
+  const menuButton = document.getElementById('menuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const body = document.body;
+
+  function toggleMenu(show: boolean) {
+    const spans = menuButton?.querySelectorAll('span');
+    
+    if (show) {
+      mobileMenu?.classList.remove('hidden');
+      body.style.overflow = 'hidden';
+      
+      // Transformar el botón de menú en X
+      if (spans) {
+        spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+        spans.forEach(span => {
+        span.classList.remove('bg-white');
+        span.classList.add('bg-black');
+      });
+      }
+
+      // Animar los elementos del menú
+      const menuItems = mobileMenu?.querySelectorAll('li');
+      menuItems?.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.classList.add('nav-item-animation');
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.style.opacity = '1';
+      });
+    } else {
+      mobileMenu?.classList.add('hidden');
+      body.style.overflow = '';
+      
+      // Restaurar el botón de menú
+      if (spans) {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = '';
+      }
+    }
+  }
+
+  menuButton?.addEventListener('click', () => {
+    const isMenuOpen = !mobileMenu?.classList.contains('hidden');
+    toggleMenu(!isMenuOpen);
+  });
+
+  // Cerrar menú al hacer clic en los enlaces
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  // Cerrar menú al redimensionar la ventana
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      toggleMenu(false);
+    }
+  });
+
+  // Cambiar color del menú al hacer scroll
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const nav = document.querySelector('nav');
+    const menuButton = document.getElementById('menuButton');
+    const spans = menuButton?.querySelectorAll('span');
+
+    if (window.scrollY > 100) {
+      header?.classList.add('bg-white', 'shadow-lg');
+      nav?.querySelectorAll('a').forEach(link => {
+        link.classList.remove('text-white');
+        link.classList.add('text-gray-800');
+      });
+      spans?.forEach(span => {
+        span.classList.remove('bg-white');
+        span.classList.add('bg-gray-800');
+      });
+    } else {
+      header?.classList.remove('bg-white', 'shadow-lg');
+      nav?.querySelectorAll('a').forEach(link => {
+        link.classList.add('text-white');
+        link.classList.remove('text-gray-800');
+      });
+      spans?.forEach(span => {
+        span.classList.add('bg-white');
+        span.classList.remove('bg-gray-800');
+      });
+    }
+  });
+</script>

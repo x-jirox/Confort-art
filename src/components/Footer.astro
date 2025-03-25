@@ -1,0 +1,136 @@
+---
+const currentYear = new Date().getFullYear();
+const whatsappNumber = "593963955142";
+
+// Enlaces del footer
+const footerLinks = {
+    productos: [
+        { name: "Sala", href: "/shop?category=sala" },
+        { name: "Comedor", href: "/shop?category=comedor" },
+        { name: "Dormitorio", href: "/shop?category=dormitorio" },
+    ],
+
+    ayuda: [
+        { name: "Preguntas Frecuentes", href: "/contact" },
+        { name: "Contacto", href: "/contact" },
+    ],
+};
+---
+<!-- Pie de página (Footer) -->
+<footer class="bg-black text-gray-300 py-10">
+    <!-- Contenedor principal -->
+    <div class="container mx-auto px-6">
+        <!-- Grid de 4 columnas, con una sola columna en dispositivos pequeños (responsive) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <!-- Sección de logo y redes sociales -->
+            <div class="footer-brand flex flex-col items-center">
+                <!-- Logo de la empresa -->
+                <img
+                    src="/img/logo.webp"
+                    alt="Confort Art Logo" 
+                    class="h-35 mb-4" 
+                />
+
+                <!-- Enlaces a redes sociales -->
+                <div class="flex space-x-5">
+                    <!-- Enlace a Facebook -->
+                    <a
+                        href="#"
+                        aria-label="Facebook"
+                        class="text-white hover:text-white transition duration-200"
+                    >
+                        <i class="fab fa-facebook-f"></i> <!-- Icono de Facebook -->
+                    </a>
+
+                    <!-- Enlace a Instagram -->
+                    <a
+                        href="#"
+                        aria-label="Instagram"
+                        class="text-white hover:text-white transition duration-200"
+                    >
+                        <i class="fab fa-instagram"></i> <!-- Icono de Instagram -->
+                    </a>
+
+                    <!-- Enlace a WhatsApp -->
+                    <a
+                        href={`https://wa.me/${whatsappNumber}`}
+                        aria-label="WhatsApp"
+                        class="text-white hover:text-white transition duration-200"
+                    >
+                        <i class="fab fa-whatsapp"></i> <!-- Icono de WhatsApp -->
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sección de enlaces de productos -->
+            <div class="footer-links text-center md:text-left">
+                <h3 class="text-lg font-semibold mb-2 text-white">Productos</h3>  <!-- Título de la sección -->
+                <ul class="space-y-1">
+                    <!-- Mapeo de los enlaces de productos -->
+                    {
+                        footerLinks.productos.map((link) => (
+                            <li>
+                                <a
+                                    href={link.href}
+                                    class="hover:text-white transition duration-200"
+                                >
+                                    {link.name} <!-- Nombre del producto -->
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Sección de enlaces de ayuda -->
+            <div class="footer-links text-center md:text-left">
+                <h3 class="text-lg font-semibold mb-2 text-white">Ayuda</h3>  <!-- Título de la sección -->
+                <ul class="space-y-1">
+                    <!-- Mapeo de los enlaces de ayuda -->
+                    {
+                        footerLinks.ayuda.map((link) => (
+                            <li>
+                                <a
+                                    href={link.href}
+                                    class="hover:text-white transition duration-200"
+                                >
+                                    {link.name} <!-- Nombre de la ayuda -->
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Sección de contacto -->
+            <div class="footer-contact text-center md:text-left">
+                <h3 class="text-lg font-semibold mb-2 text-white">Contacto</h3> <!-- Título de la sección -->
+                <!-- Dirección física -->
+                <p
+                    class="flex items-center justify-center md:justify-start mb-1"
+                >
+                    <i class="fas fa-map-marker-alt mr-2"></i> Av. Principal 123,
+                    Cuenca-Ecuador
+                </p>
+                <!-- Número de teléfono -->
+                <p
+                    class="flex items-center justify-center md:justify-start mb-1"
+                >
+                    <i class="fas fa-phone mr-2"></i> +593 96 395 5142
+                </p>
+                <!-- Correo electrónico -->
+                <p class="flex items-center justify-center md:justify-start">
+                    <i class="fas fa-envelope mr-2"></i> info@confort-art.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Sección de copyright -->
+        <div class="mt-8 text-center border-t border-white pt-4">
+            <p class="text-sm">
+                &copy; {currentYear} Confort Art. Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
