@@ -1,0 +1,156 @@
+---
+import Layout from "../layouts/Layout.astro";
+const whatsappNumber = "593963955142";
+---
+
+<Layout title="Contacto - Confort Arte">
+  <main class="py-16 bg-gray-100">
+    <div class="max-w-screen-xl mx-auto px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-6 text-[#6d633a] font-semibold">
+            ¿Tienes alguna pregunta?
+          </h2>
+          <p>
+            Estamos aquí para ayudarte. Completa el formulario y nos pondremos
+            en contacto contigo a través de WhatsApp inmediatamente.
+          </p>
+
+          <div class="mt-12">
+            <div
+              class="flex gap-6 mb-8 p-4 rounded-xl transition duration-300 ease-in-out hover:bg-[#a89d73] hover:text-white transform hover:translate-x-1"
+            >
+              <i class="fas fa-clock text-2xl w-10 text-center"></i>
+              <div>
+                <h3 class="text-xl font-medium mb-2">Horario de Atención</h3>
+                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+                <p>Sábados: 9:00 AM - 2:00 PM</p>
+              </div>
+            </div>
+
+            <div
+              class="flex gap-6 mb-8 p-4 rounded-xl transition duration-300 ease-in-out hover:bg-[#a89d73] hover:text-white transform hover:translate-x-1"
+            >
+              <i class="fas fa-map-marker-alt text-2xl w-10 text-center"></i>
+              <div>
+                <h3 class="text-xl font-medium mb-2">Ubicación</h3>
+                <p>Av. Principal 123, Cuenca</p>
+                <p>Referencia: Frente al Parque Central</p>
+              </div>
+            </div>
+
+            <div
+              class="flex gap-6 mb-8 p-4 rounded-xl transition duration-300 ease-in-out hover:bg-[#a89d73] hover:text-white transform hover:translate-x-1"
+            >
+              <i class="fas fa-phone text-2xl w-10 text-center"></i>
+              <div>
+                <h3 class="text-xl font-medium mb-2">Teléfono</h3>
+                <p>+593 96 395 5142</p>
+                <p>Llamadas y WhatsApp</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form id="contactForm" class="bg-white p-10 rounded-xl shadow-lg">
+          <h3 class="text-3xl mb-6 text-[#6d633a] font-semibold text-center">
+            Envíanos un mensaje
+          </h3>
+          <div class="mb-6">
+            <label for="name" class="block text-black font-medium mb-2"
+              >Nombre completo</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Ingresa tu nombre"
+              class="w-full p-3 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div class="mb-6">
+            <label for="phone" class="block text-black font-medium mb-2"
+              >Teléfono</label
+            >
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Ej: 0999999999"
+              class="w-full p-3 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div class="mb-6">
+            <label for="interest" class="block text-black font-medium mb-2"
+              >Me interesa</label
+            >
+            <select
+              id="interest"
+              name="interest"
+              class="w-full p-3 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="Sala">Muebles de Sala</option>
+              <option value="Comedor">Muebles de Comedor</option>
+              <option value="Dormitorio">Muebles de Dormitorio</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="mb-6">
+            <label for="message" class="block text-black font-medium mb-2"
+              >Mensaje</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="¿En qué podemos ayudarte?"
+              class="w-full p-3 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              required></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full p-3 bg-[#25D366] text-white rounded-lg text-lg flex items-center justify-center gap-3 hover:bg-[#128C7E] transform hover:translate-y-1 shadow-md transition duration-300 ease-in-out"
+          >
+            <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script define:vars={{ whatsappNumber }}>
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const interest = document.getElementById("interest").value;
+      const message = document.getElementById("message").value;
+
+      const whatsappMessage =
+        `¡Hola! Soy ${name}.\n\n` +
+        `Me interesa: ${interest}\n` +
+        `Mi teléfono: ${phone}\n\n` +
+        `Mensaje: ${message}`;
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, "_blank");
+    });
+</script>
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+/>

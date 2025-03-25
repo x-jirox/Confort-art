@@ -1,11 +1,94 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Datos de las características destacadas
+const features = [
+  {
+    icon: "fas fa-couch",
+    title: "Diseño Exclusivo",
+    description: "Muebles únicos diseñados para tu espacio"
+  },
+  {
+    icon: "fas fa-medal",
+    title: "Alta Calidad",
+    description: "Materiales premium y acabados superiores"
+  },
+  {
+    icon: "fas fa-truck",
+    title: "Entrega Segura",
+    description: "Envíos a todo el país con cuidado especial"
+  }
+];
+
+// Datos de categorías destacadas
+const categories = [
+  {
+    name: "Sala",
+    image: "/img/banner.jpg",
+    description: "Espacios acogedores para compartir"
+  },
+  {
+    name: "Comedor",
+    image: "/img/banner.jpg",
+    description: "Elegancia en cada comida"
+  },
+  {
+    name: "Dormitorio",
+    image: "/img/banner.jpg",
+    description: "El descanso que mereces"
+  }
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Inicio - Confort Art">
+  <!-- Features Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map(feature => (
+          <div class="text-center p-6 bg-white rounded-lg border border-gray-300 shadow-lg transition-transform transform hover:translate-y-[-5px]">
+            <i class={feature.icon + " text-5xl text-yellow-500 mb-4"}></i>
+            <h3 class="text-2xl font-semibold mb-2 text-black">{feature.title}</h3>
+            <p class="text-gray-700">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl text-center mb-12 text-[#6d633a] font-bold">Explora Nuestras Categorías</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {categories.map(category => (
+          <a href={`/shop?category=${category.name.toLowerCase()}`} class="relative block h-72 rounded-lg border border-gray-300 overflow-hidden shadow-lg transition-transform transform hover:scale-105">
+            <img src={category.image} alt={category.name} class="w-full h-full object-cover" />
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+              <h3 class="text-xl font-semibold">{category.name}</h3>
+              <p>{category.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 bg-gray-200">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl font-semibold mb-4 text-[#6d633a]">Sobre Confort Art</h2>
+          <p class="text-gray-700 text-lg leading-relaxed mb-4">Somos una empresa dedicada a crear espacios únicos a través de muebles de alta calidad. Cada pieza es seleccionada cuidadosamente para garantizar el mejor confort y estilo para tu hogar.</p>
+        </div>
+        <div>
+          <img src="/img/banner.jpg" alt="Sobre Nosotros" class="w-full h-96 object-cover rounded-lg border border-gray-300 shadow-lg" />
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

@@ -1,0 +1,212 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Datos quemados de productos
+const products = [
+  {
+    id: 1,
+    name: "Sofá Moderno 3 Plazas",
+    price: 899.99,
+    category: "Sala",
+    image: "/img/banner.jpg",
+    description: "Sofá contemporáneo con tapizado premium",
+    material: "Tela",
+    colors: ["Gris", "Azul", "Beige"],
+  },
+  {
+    id: 2,
+    name: "Mesa de Comedor Rústica",
+    price: 599.99,
+    category: "Comedor",
+    image: "/img/banner.jpg",
+    description: "Mesa de madera maciza para 6 personas",
+    material: "Madera",
+    colors: ["Nogal", "Roble"],
+  },
+  {
+    id: 3,
+    name: "Cama King Size Premium",
+    price: 1299.99,
+    category: "Dormitorio",
+    image: "/img/banner.jpg",
+    description: "Cama con cabecera tapizada y estructura reforzada",
+    material: "Madera y Tela",
+    colors: ["Gris", "Beige"],
+  },
+  {
+    id: 4,
+    name: "Sillón Reclinable",
+    price: 499.99,
+    category: "Sala",
+    image: "/img/banner.jpg",
+    description: "Sillón reclinable con sistema manual",
+    material: "Cuero sintético",
+    colors: ["Negro", "Marrón"],
+  },
+  {
+    id: 5,
+    name: "Juego de Sillas x4",
+    price: 399.99,
+    category: "Comedor",
+    image: "/img/banner.jpg",
+    description: "Set de 4 sillas con diseño escandinavo",
+    material: "Madera y Tela",
+    colors: ["Blanco", "Negro"],
+  },
+];
+
+// Obtener categorías únicas
+const categories = [...new Set(products.map((product) => product.category))];
+
+// Obtener rango de precios
+const prices = products.map((product) => product.price);
+const minPrice = Math.min(...prices);
+const maxPrice = Math.max(...prices);
+---
+
+
+
+<Layout title="Productos - Confort Art">
+  <main class="shop-page py-8 bg-gray-100">
+    <div class="container mx-auto px-4 md:px-8 max-w-screen-xl">
+      <div class="shop-grid grid grid-cols-1 md:grid-cols-[280px_1fr] gap-12">
+        <!-- Contenido aquí -->
+
+        <!-- Filtros -->
+        <aside
+          class="bg-white p-8 rounded-lg shadow-md h-fit md:sticky top-8 border-2 border-solid border-gray-300"
+        >
+          <div class="filter-section">
+            <h3 class="mb-6 text-2xl text-[#6d633a]">Filtros</h3>
+
+            <!-- Búsqueda -->
+            <div class="mb-8">
+              <label for="search">Buscar</label>
+              <input
+                type="text"
+                id="search"
+                placeholder="Buscar productos..."
+                class="w-full p-3 border-2 border-gray-200 rounded-lg text-sm transition-all duration-300 focus:border-[#6d633a] focus:outline-none focus:ring-2 focus:ring-[#6d633a] focus:ring-opacity-50"
+              />
+            </div>
+
+            <!-- Categorías -->
+            <div class="block mb-4 font-medium text-black">
+              <label>Categorías</label>
+              <div class="flex flex-col gap-2">
+                <label
+                  class="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-gray-200"
+                >
+                  <input type="radio" name="category" value="all" checked />
+                  <span>Todas</span>
+                </label>
+                {
+                  categories.map((category) => (
+                    <label class="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-gray-200">
+                      <input type="radio" name="category" value={category} />
+                      <span>{category}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Rango de Precio -->
+            <div class="filter-group mb-4">
+              <label>Precio</label>
+              <div class="flex gap-2 items-center mb-2">
+                <input
+                  type="number"
+                  id="minPrice"
+                  placeholder="Min"
+                  min={minPrice}
+                  max={maxPrice}
+                  class="w-24 p-2 border-2 border-gray-200 rounded-md"
+                />
+                <span>-</span>
+                <input
+                  type="number"
+                  id="maxPrice"
+                  placeholder="Max"
+                  min={minPrice}
+                  max={maxPrice}
+                  class="w-24 p-2 border-2 border-gray-200 rounded-md"
+                />
+              </div>
+            </div>
+
+            <!-- Botón para limpiar filtros -->
+            <button
+              id="clearFilters"
+              class="w-full p-3 bg-[#6d633a] text-white rounded-lg transition-all duration-300 hover:bg-[#8b7e4b]"
+            >
+              Limpiar Filtros
+            </button>
+          </div>
+        </aside>
+
+        <!-- Productos -->
+        <div class="products-section">
+          <div
+            class="flex justify-between items-center mb-8 p-4 bg-white rounded-lg border-2 border-solid border-gray-300"
+          >
+            <p class="text-lg text-black">
+              <span id="productCount">{products.length}</span> productos
+            </p>
+            <select
+              id="sortSelect"
+              class="px-4 py-2 border-2 border-gray-200 rounded-md text-sm text-black cursor-pointer transition-all duration-300 focus:border-[#6d633a]"
+            >
+              <option value="default">Ordenar por</option>
+              <option value="price-asc">Precio: Menor a Mayor</option>
+              <option value="price-desc">Precio: Mayor a Menor</option>
+              <option value="name-asc">Nombre: A-Z</option>
+              <option value="name-desc">Nombre: Z-A</option>
+            </select>
+          </div>
+
+          <div
+            class="grid grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] gap-8"
+            id="productsGrid"
+          >
+            {
+              products.map((product) => (
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:scale-105 border-2 border-gray-300">
+                  <div class="product-image relative h-64 overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                  <div class="product-info p-4">
+  <h3 class="text-lg font-semibold mb-1">{product.name}</h3>
+  <p class="text-sm text-gray-600 mb-2">{product.category}</p>
+  <p class="text-xl font-bold text-gray-800 mb-4">
+    ${product.price.toFixed(2)}
+  </p>
+  <button class="add-to-cart-btn w-full p-3 bg-[#6d633a] text-white rounded-md flex items-center justify-center gap-2 transition-all duration-300 hover:bg-black"
+          data-name="{product.name}" 
+          data-image="{product.image_url}" 
+          data-price="${product.price.toFixed(2)}">
+    <i class="fab fa-whatsapp"></i>
+    Cotizar
+  </button>
+</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+/>
