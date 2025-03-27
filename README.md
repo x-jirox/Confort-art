@@ -3,46 +3,64 @@
 ```sh
 npm create astro@latest -- --template basics
 ```
+# Confort Arte - Furniture Store
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+Confort Arte is an online store specializing in high-quality furniture. Our goal is to offer customers products designed to enhance the comfort and style of their homes. On this platform, users can explore our furniture selection, view product details, and make purchases easily and securely.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+Inside your Astro project, you'll find the following folders and files:
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+src/
+├── components/            # Reusable components  
+│   ├── layout/            # Header, footer, and other structural elements  
+│   │   ├── Header.astro   
+│   │   ├── Footer.astro   
+│   ├── data/              # Data related to components and pages  
+│   │   ├── components     # Data for reusable components
+│   │   │   ├── footerlink.js
+│   │   ├── pages          # Data for pages
+│   │   │   ├── shop
+│   │   │   │   ├── products.js 
+│   │   │   │   ├── productsutils.js
+├── layouts/               # Page templates  
+│   ├── Layout.astro  
+├── pages/                 # Main pages  
+│   ├── index.astro  
+│   ├── contact.astro  
+│   ├── shop.astro  
+├── styles/                # Styles for better maintainability  
+│   ├── global.css         # Global styles  
+├── scripts/               # Specific scripts  
+│   ├── components/        # Scripts for components
+│   │   ├── header.js      # Logic for the Header
+│   ├── pages/             # Scripts for pages
+│   │   ├── contact/       # Logic for the Contact page
+│   │   │   ├── contact-message.js  
+│   │   ├── shop/          # Logic for the Shop page
+│   │   │   ├── shop-message.js
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands should be run from the root of the project in the terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| Command                   | Action                                            |
+| :------------------------ | :------------------------------------------------ |
+| `npm install`             | Installs the dependencies                         |
+| `npm run dev`             | Starts the local development server at `localhost:4321` |
+| `npm run build`           | Builds your site for production in `./dist/`     |
+| `npm run preview`         | Preview your build locally before deploying      |
+| `npm run astro ...`       | Runs CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## 📱 Preview
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+You can preview your project at any time by running `npm run dev` and accessing `localhost:4321` in your browser.
+
+## 🌐 Deploy
+
+To build the project for production and deploy it to your preferred platform (e.g., Vercel, Netlify, or any server), run the following command:
+
+```bash
+npm run build

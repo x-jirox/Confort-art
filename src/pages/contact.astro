@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const whatsappNumber = "593963955142";
 ---
 
 <Layout title="Contacto - Confort Arte">
@@ -127,27 +126,8 @@ const whatsappNumber = "593963955142";
   </main>
 </Layout>
 
-<script define:vars={{ whatsappNumber }}>
-  document
-    .getElementById("contactForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
+<script type="module" src="/src/scripts/pages/contact/contact-message.js" defer></script>
 
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const interest = document.getElementById("interest").value;
-      const message = document.getElementById("message").value;
-
-      const whatsappMessage =
-        `¡Hola! Soy ${name}.\n\n` +
-        `Me interesa: ${interest}\n` +
-        `Mi teléfono: ${phone}\n\n` +
-        `Mensaje: ${message}`;
-
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, "_blank");
-    });
-</script>
 
 <!-- Font Awesome -->
 <link

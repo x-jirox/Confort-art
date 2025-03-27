@@ -3,18 +3,7 @@ const currentYear = new Date().getFullYear();
 const whatsappNumber = "593963955142";
 
 // Enlaces del footer
-const footerLinks = {
-    productos: [
-        { name: "Sala", href: "/shop?category=sala" },
-        { name: "Comedor", href: "/shop?category=comedor" },
-        { name: "Dormitorio", href: "/shop?category=dormitorio" },
-    ],
-
-    ayuda: [
-        { name: "Preguntas Frecuentes", href: "/contact" },
-        { name: "Contacto", href: "/contact" },
-    ],
-};
+import { footerLinks } from "../data/components/layouts/footerLinks";
 ---
 <!-- Pie de página (Footer) -->
 <footer class="bg-black text-gray-300 py-10">
